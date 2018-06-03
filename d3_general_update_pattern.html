@@ -73,6 +73,20 @@
                         .data(globalData, function(d){return d});
       selection.exit().remove();
     }
+
+    function enter(){
+      let selection = d3
+                        .select("#svg")
+                        .selectAll("text")
+                        .data(globalData, function(d){return d});
+      selection
+      .enter()
+      .append("text")
+      .text(function (d, i) { return d })
+      .style('font-size', '36')
+      .attr('x', function (d){ return (alphabet.findIndex((el) => {return el===d}) * 32)})
+      .attr('y', '250');
+    }
   </script>
 </head>
 
