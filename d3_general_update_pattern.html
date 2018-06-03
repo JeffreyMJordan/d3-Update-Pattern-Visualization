@@ -92,6 +92,15 @@
       .attr('y', '250')
       .attr('fill', 'green');
     }
+
+    function update(){
+      d3
+        .select("#svg")
+        .selectAll("text")
+        .data(globalData, function(d){return d})
+        .attr('fill', 'purple');
+      
+    }
   </script>
 </head>
 
