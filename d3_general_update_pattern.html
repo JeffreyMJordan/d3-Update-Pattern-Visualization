@@ -45,12 +45,14 @@
     }
 
     function randomSelection() {
+      d3.select("#svg").selectAll("text").attr("fill", "black");
       data = [];
       let length = rand25();
 
-      for(let i = 0; i<=length; i++){
+      for(let i = 0; i<=length-1; i++){
         let letter = alphabet[rand25()];
         while(data.includes(letter)){
+          console.log("retry")
           letter = alphabet[rand25()];
         }
         data.push(letter);
@@ -79,13 +81,16 @@
                         .select("#svg")
                         .selectAll("text")
                         .data(globalData, function(d){return d});
+
+      
       selection
       .enter()
       .append("text")
       .text(function (d, i) { return d })
       .style('font-size', '36')
       .attr('x', function (d){ return (alphabet.findIndex((el) => {return el===d}) * 32)})
-      .attr('y', '250');
+      .attr('y', '250')
+      .attr('fill', 'green');
     }
   </script>
 </head>
