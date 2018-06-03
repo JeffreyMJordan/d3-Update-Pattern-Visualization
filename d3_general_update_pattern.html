@@ -27,7 +27,7 @@
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <script>
     let alphabet = "abcdefghijklmnopwrstuvwxyz".split("");
-
+    let globalData;
     document.addEventListener('DOMContentLoaded', () => {
       let selection = d3.select("#svg").selectAll("text");
       selection
@@ -41,26 +41,37 @@
     });
 
     function rand25(){
-      return Math.round(Math.random() * 25, 0)
+      return Math.round( Math.random() * 25, 0)
     }
-
 
     function randomSelection() {
       data = [];
-      let sizeOfSelection = rand25();
-      for(let i=0; i<=sizeOfSelection; i++){
-        let letter = alphabet[rand25()]
+      let length = rand25();
+
+      for(let i = 0; i<=length; i++){
+        let letter = alphabet[rand25()];
         while(data.includes(letter)){
           letter = alphabet[rand25()];
         }
-        data.push(letter)
+        data.push(letter);
       }
+
+
       let selectBox = document.getElementById("selection-box");
       let childNodes = selectBox.childNodes;
       if(childNodes.length>0){
         selectBox.removeChild(selectBox.childNodes[0])
       }
       selectBox.appendChild(document.createTextNode(JSON.stringify(data)));
+      globalData = data;
+    }
+
+    function exit(){
+      let selection = d3
+                        .select("#svg")
+                        .selectAll("text")
+                        .data(globalData, function(d){return d});
+      selection.exit().remove();
     }
   </script>
 </head>
