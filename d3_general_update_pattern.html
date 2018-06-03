@@ -1,6 +1,19 @@
 <head>
 
   <style>
+
+    .enter{
+      color: green;
+    }
+
+    .update{
+      color: purple;
+    }
+
+    .exit{
+      color: red;
+    }
+
     #button-row{
       display: flex;
     }
@@ -14,8 +27,15 @@
   </style>
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <script>
-    var alphabet = "abcdefghijklmnopwrstuvwxyz".split("");
-    let selection; 
+    document.addEventListener('DOMContentLoaded', () => {
+      let alphabet = "abcdefghijklmnopwrstuvwxyz".split("").map((el) => {return {text: el}});
+      console.log(alphabet)
+      let selection = d3.select("#svg").selectAll("text");
+      console.log(alphabet);
+      console.log(selection.data(alphabet));
+      selection.data(alphabet).enter().append("text").text(function(d, i){return d.text}).style('font-size', '36').attr('x', function(d, i){return i*32}).attr('y', '250');
+    })
+
 
     function randomSelection(){
       
@@ -29,5 +49,10 @@
     <span>Enter</span>
     <span>Exit</span>
   </div>
-  <svg width="500" height="500"></svg>
+
+  <div id="selections">
+    
+  </div>
+
+  <svg id="svg" width="1000" height="500"></svg>
 </body>
